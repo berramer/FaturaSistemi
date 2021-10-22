@@ -1,0 +1,335 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<div>
+
+
+  
+
+
+    <button id="btnGiriş" type="button" class="btn btn-primary float-left mt-5 mb-3 " data-toggle="modal" data-target="#exampleModal">
+        Kullanıcı Kaydet
+    </button>
+    <button style="background-color: #673AB7; width: 25%; " type="button" class="btn btn-primary float-left mt-5 mb-3 mr-1" data-toggle="modal" data-target="#exampleModal2">
+        Admin Kaydet
+    </button>
+
+    <input type="search" onchange="search()" id="search" class="mt-5 mb-3 mr-1 float-right  form-control" placeholder="Search" style="width:25%;" />
+
+
+</div>
+<div>
+    <br /><br />
+    <table id="faturalar">
+        <thead>
+            <tr>
+                <th>Müşteri Tc</th>
+                <th>Müşteri Adı</th>
+                <th>Müşteri Soyadı</th>
+                <th>Fatura Numarası</th>
+                <th>Fatura Tipi</th>
+                <th>Kesim Tarihi</th>
+                <th>Son Ödeme Tarihi</th>
+                <th>Fatura Tutarı</th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+
+
+</div>
+
+
+<div>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Kullanıcı Ekleme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Müşteri İsim</label>
+                            <input type="text" id="MusteriIsim" value="" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Müşteri Soyad</label>
+                            <input type="text" id="MusteriSoyad" value="" />
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Müşteri Tc</label>>
+                            <input type="text" id="MusteriTc" value="" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Müşteri Addres</label>
+                            <input type="text" id="MusteriAdrres" value="" />
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Müşteri Telefon Numarası</label>
+                            <input type="text" id="TelNo" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Müşteri Şifre</label>
+                            <input type="text" id="MüsteriSifre" value="" />
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12  border mt-3" id="musteriuyelik">
+                            <span class="offset-3">Doğalgaz</span>
+                            <input type="checkbox" value="Doğalgaz" id="Dogalgaz" name="checkbox" class="mr-3" />
+                            <span>Elektirik</span>
+                            <input type="checkbox" value="Elektirik" id="Elektirik" name="checkbox" class="mr-3" />
+                            <span>Su</span>
+                            <input type="checkbox" value="Su" id="Su" name="checkbox" class="mr-3" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="button" onclick="musteri_ekle()" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Admin Ekleme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Admin İsim</label>
+                            <input type="text" id="AdminIsim" value="" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Admin Soyad</label>
+                            <input type="text" id="AdminSoyad" value="" />
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Admin UserName</label>
+                            <input type="text" id="AdminUserName" value="" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>E-mail</label>
+                            <input type="text" id="AdminEmail" value="" />
+                        </div>
+
+
+                    </div>
+                    <div class="row ">
+
+                        <div class="col-sm-6 offset-2 mt-2">
+                            <label>Şifre</label>
+                            <input type="text" id="AdminSifre" value="" />
+                        </div>
+
+
+
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="button" onclick="admin_ekle()" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+  /*  faturaatama();*/
+
+    veri_yükleme();
+    function search() {
+        var input = document.getElementById("search").value;
+        var table = document.getElementById("faturalar");
+        var tr = table.getElementsByTagName("tr");
+        var i, x;
+
+        for (i = 1; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td");
+            var durum = false;
+            for (x = 0; x < td.length; x++) {
+                if (td[x]) {
+                    txtValue = td[x].textContent || td[x].innerText;
+                    if (txtValue.includes(input)) {
+                        durum = true;
+                    }
+                }
+            }
+
+       if (durum) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+        }
+    }
+
+    function veri_yükleme() {
+        $.ajax({
+            url: "../Fatura/gettumfatura",
+            type: "GET",
+            data: {},
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+                console.log(result);
+                $("#faturalar tbody tr").remove();
+                $.each(result, function (i, item) {
+                    var rows = " <tr><td> " + item.customerIdentity + "</td>"
+                        + "<td> " + item.customerName + "</td>"
+                        + "<td> " + item.customerLastName + "</td>"
+                        + "<td> " + item.invoinceNumber + "</td>"
+                        + "<td> " + item.invoinceType + "</td>"
+                        + "<td> " + item.invoinceTime + "</td>"
+                        + "<td> " + item.invoinceDeliveryTime + "</td>"
+                        + "<td> " + item.invoinceAmount + "</td>";
+                    if (item.invoinceSituation == 1) {
+                        rows += "<td style=\"color:green\"> Ödendi </td></tr>";
+                    }
+                    else {
+                        rows += "<td style=\"color:red\"> Ödenmedi </td></tr>";
+                    }
+
+
+                    $("#faturalar tbody").append(rows);
+                });
+            }
+
+        });
+    }
+
+
+    function musteri_ekle() {
+        var MusteriIsim = document.getElementById("MusteriIsim").value;
+        var MusteriSoyad = document.getElementById("MusteriSoyad").value;
+        var MusteriTc = document.getElementById("MusteriTc").value;
+        var MusteriAdrres = document.getElementById("MusteriAdrres").value;
+        var TelNo = document.getElementById("TelNo").value;
+        $('#MüsteriSifre').val(parseInt(Math.floor(Math.random() * 101)) + parseInt(Math.floor(Math.random() * 101)));
+        var MüsteriSifre = document.getElementById("MüsteriSifre").value;
+
+        var Uyelikler = document.getElementById("musteriuyelik");
+        var checkbox = Uyelikler.getElementsByTagName("input");
+        var uyelikler = "";
+        for (i = 0; i < checkbox.length; i++) {
+            if (checkbox[i].checked)
+            uyelikler += checkbox[i].value+",";
+        }
+
+        $.ajax({
+            url: "../Kullanıcı/kullanıcı_ekle",
+            type: "GET",
+            data: { Name: MusteriIsim, LastName: MusteriSoyad, CustomerIdentity: MusteriTc, address: MusteriAdrres, TelNo: TelNo, uyelıkler: uyelikler, password: MüsteriSifre },
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+                alert(result);
+
+            }
+        });
+    }
+
+    function admin_ekle() {
+        var AdminIsım = document.getElementById("AdminIsim").value;
+        var AdminSoyad = document.getElementById("AdminSoyad").value;
+        var AdminUserName = document.getElementById("AdminUserName").value;
+        var AdminEmail = document.getElementById("AdminEmail").value;
+        var AdminSifre = document.getElementById("AdminSifre").value;
+
+        $.ajax({
+            url: "../Admin/adminekle",
+            type: "GET",
+            data: { userName: AdminIsım, UserLastName: AdminSoyad, SystemUserName: AdminUserName, email: AdminEmail, password: AdminSifre },
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+                alert(result);
+            }
+        });
+
+    }
+
+    //function faturaatama() {
+        
+    //    $.ajax({
+    //        url: "../Admin/faturaatama",
+    //        type: "GET",
+    //        data: {},
+    //        dataType: "Json",
+    //        async: "false",
+
+    //        success: function (result) {
+    //            alert(result);
+    //        }
+    //    });
+    //}
+
+</script>
+

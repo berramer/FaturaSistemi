@@ -1,0 +1,347 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+
+<div class="row">
+    <div class=" col-md-3 border" id="profil" style="display: none; border-radius: 10px; background-color:lightblue; transition:2s;">
+        <button type="button" class="float-right" onclick="kapat()">
+            <span aria-hidden="true">&times;</span>
+        </button><br />
+        <label>TC NO</label>
+        <input class="form-control w-75 offset-1 " type="text" id="ptc" value="" readonly />
+        <label>Müşteri AD</label>
+        <input class="form-control w-75 offset-1 " type="text" id="pcustomerad" value="" readonly />
+        <label>Müşteri soyad</label>
+        <input class="form-control w-75 offset-1 " type="text" id="pcustomerlastname" value="" readonly />
+        <label>Müşteri Uyelik</label>
+        <input class="form-control w-75 offset-1 " type="text" id="pcustomeruyelik" value="" readonly />
+
+
+    </div>
+    <div class="col-md-12" id="table">
+      
+        <button style="background-color: #673AB7; width: 25%; " type="button" class="btn btn-primary float-left mt-5 mb-3 mr-1" data-toggle="modal" data-target="#exampleModal1">
+            Sifre Yenileme
+        </button>
+        <div class="mt-5 float-right">
+            <input class="form-control w-75 offset-2 " type="text" id="search" name="search" onchange="listele()"><br />
+
+
+            <span> Sadece Ödenmeyenler Gösterilsin</span>
+            <input type="checkbox" id="checkbox" name="checkbox" onchange="listele()" />
+            <input type="checkbox" id="checkbox" name="checkbox" onchange="profil()" />
+        </div>
+        <br /><br />
+        <table id="faturalar">
+            <thead>
+                <tr>
+                    <th>Fatura Numarası</th>
+                    <th>Fatura Tipi</th>
+                    <th>Fatura Tutarı</th>
+                    <th>Detay</th>
+                    <th>Durum</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+
+        <button onclick="ödeme()">Ödeme</button>
+
+    </div>
+</div>
+
+<div>
+    <!-- Button trigger modal -->
+   
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fatura Ödeme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>FaturaNumarası</label>
+                            <input class="form-control w-75 offset-1 " type="text" id="FaturaNumarası" value="" readonly/>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Müşteri Tc</label>
+                            <input  class="form-control w-75 offset-1 "type="text" id="CustomerTc" value="" readonly/>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Fatura Tipi</label>
+                            <input  class="form-control w-75 offset-1 " type="text" id="FaturaType" value="" readonly/>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Fatura Tutarı</label>
+                            <input class="form-control w-75 offset-1 " type="text" id="Amaount" value="" readonly />
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Fatura Kesim Tarihi</label>
+                            <input class="form-control w-75 offset-1 " type="text" id="KesimTarihi" readonly/>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Fatura Son Ödeme Tarihi</label>
+                            <input class="form-control w-75 offset-1 " type="text" id="SonÖdemeTarihi" readonly/>
+                        </div>
+                        <input type="hidden" id="FaturaId" value="" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fatura Ödeme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Yeni şifre</label>
+                        <input class="form-control w-75 offset-1 " type="text" id="sifre1"  />
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Yeni şifre Tekrar</label>
+                        <input class="form-control w-75 offset-1 " type="text" id="sifre2"  />
+                    </div>
+                    
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" onclick="sifre_yenile()" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    
+    listele();
+    veriyüklemeprofil();
+ 
+    function profil() {
+        var element = document.getElementById("profil");
+       
+
+        document.getElementById("table").className = "col-md-9";
+     
+        element.style.display = "";
+        
+        
+        
+    }
+    function kapat(){
+        var element = document.getElementById("profil");
+
+        element.style.display = "none";
+        document.getElementById("table").className = "col-md-12";
+    }
+
+    function sifre_yenile() {
+        let str1 = document.getElementById("sifre1").value;
+        let str2 = document.getElementById("sifre2").value;
+
+        if (str1 == str2) {
+            $.ajax({
+                url: "../Kullanıcı/sifreyenile",
+                type: "GET",
+                data: { sifre: str1 },
+                dataType: "Json",
+                async: "false",
+
+                success: function (result) {
+                    alert(result);
+
+                }
+            });
+        }
+
+        else {
+            alert("yeni şifre uyuşmuyor");
+        }
+    }
+
+
+    function listele() {
+       
+        var durum = document.getElementById("checkbox").checked;
+        var search = document.getElementById("search").value;
+        $.ajax({
+            url: "../Fatura/getall",
+            type: "GET",
+            data: { durum: durum, search:search },
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+
+                $("#faturalar tbody tr").remove();
+                $.each(result, function (i, item) {
+                    var rows = " <tr><td> " + item.invoiceNumber + "</td>"
+                        + "<td> " + item.invoiceType + "</td>"
+                        + "<td> " + item.invoiceAmount + "</td>"
+                        + " <td style=\"display: none\">" + item.invoiceId+"</td>";
+                    if (item.invoiceSituation == 1) {
+                        rows += "<td><button type =\"button\" onclick =\"veriyükleme('" + item.invoiceId + "')\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\"  style=\"background-color:green;\" >"
+                            + " Detay </button></td>"
+                            + "<td style=\"color:green\">Ödendi</td></tr>"
+
+                    } else {
+                        rows += "<td><button type =\"button\" onclick =\"veriyükleme('" + item.invoiceId + "')\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\"  >"
+                            + " Detay </button></td>"
+                            + "<td style=\"color:red\">Ödenmedi</td>"
+                            + " <td><input type=\"checkbox\" id=\"checkbox\" name=\"checkbox\" value=\"" + item.invoiceId+"\" /></td></tr > "
+                    }
+
+
+                    $("#faturalar tbody").append(rows);
+                });
+            }
+           
+
+
+
+        });
+    }
+
+    function veriyüklemeprofil() {
+
+        $.ajax({
+            url: "../Kullanıcı/profilbilgileri",
+            type: "GET",
+
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+                console.log(result);
+
+                $('#ptc').val(result.customerIdentity);
+                $('#pcustomerad').val(result.customerName);
+                $('#pcustomerlastname').val(result.customerLastName);
+                $('#pcustomeruyelik').val(result.memberships);
+
+            }
+        });
+
+
+    }
+
+</script>
+
+<script>
+
+
+
+    
+    function veriyükleme(Faturaıd) {
+     
+        $.ajax({
+            url: "../Fatura/getbyid",
+            type: "GET",
+            data: { id: Faturaıd },
+            dataType: "Json",
+            async:"false",
+
+            success: function (result) {
+                console.log(result);
+                
+                $('#FaturaNumarası').val(result[0].invoiceNumber);
+                $('#CustomerTc').val(result[0].customerIdentity);
+                $('#FaturaType').val(result[0].invoiceType);
+                $('#Amaount').val(result[0].invoiceAmount);
+                $('#KesimTarihi').val(result[0].invoiceTime);
+                $('#SonÖdemeTarihi').val(result[0].invoiceDeliveryTime);
+                $('#FaturaId').val(result[0].invoiceId);
+               
+            }
+        });
+
+
+    }
+
+
+
+    function ödeme() {
+        var table = document.getElementById("faturalar");
+        var tr = table.getElementsByTagName("tr");
+        var ıds = "";
+        for (i = 1; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td");
+                if (td[5].textContent == "Ödenmedi") {
+                    if (td[6].firstChild.checked) {
+                        ıds += td[3].textContent+",";
+                    }
+                }
+            }
+        if (ıds == "") {
+            alert("En az Bir fatura seçiniz");
+            window.location.href = document.location.href;
+        } else {
+
+            window.location.href = "./OdemeSayfası?id=" + ıds;
+        }
+    }
+
+
+
+
+</script>

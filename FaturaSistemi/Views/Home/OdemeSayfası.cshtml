@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+    <br />
+    <br />
+    <br />
+    <div class="d-flex h-100 ">
+
+        <div class="row m-auto" id="adminform" style="width:150%">
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-6" style=" border-right:1px solid #000000;">
+
+                
+                <font class="font offset-2 mt-4 mb-1 ">Kart Numarası: </font>
+                <input type="text" class="form-control w-75 offset-2  mt-2 mb-4" name="identity" id="KartNo" value="" placeholder="Kart Numarası" />
+
+                <font class="font offset-2  mt-2 mb-4"> Son Kullanma Tarihi: </font>
+                <input type="datetime-local" class="form-control w-75 offset-2   mt-2 mb-4" name="" id="SonTarih" placeholder="şifre" />
+
+                <font class="font offset-2"> CVV: </font>
+                <input type="text" class="form-control w-75 offset-2  mt-2 mb-5 " name="sifre" id="CVV" placeholder="CVV" />
+
+
+            </div>
+
+            <div class="col-md-6">
+                <font class="font offset-2 mt-4 mb-1 "> Fatura Numarası </font>
+                <input type="text" class="form-control w-75 offset-2  mt-2 mb-4" name="identity" id="FaturaNo" value="" placeholder=" " />
+
+                <font class="font offset-2  mt-2 mb-4"> Müşteri Tc </font>
+                <input type="text" class="form-control w-75 offset-2  mt-2 mb-4" name="" id="Tc" placeholder="" />
+
+                <font class="font offset-2  "> Fatura Tutarı </font>
+                <input type="text" class="form-control w-75 offset-2  mt-2 mb-5 " name="sifre" id="FaturaTutar" placeholder="" />
+                <button onclick="odemeyapma()" id="btnGiriş" class="offset-2">Ödeme yap</button>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+
+<script>
+    var id1 = document.location.href;
+    id1 = id1.substring(id1.indexOf('=') + 1, id1.length-1);
+    odeme(id1);
+    function odeme(faturaId) {
+        var numbers="", tutar=0;
+        $.ajax({
+            url: "../Fatura/odeme",
+            type: "GET",
+            data: { id: faturaId },
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+                $.each(result, function (i, item) {
+                    numbers += item.invoiceNumber+",";
+                    tutar += item.invoiceAmount;
+                   });
+                $('#Tc').val(result[0].customerIdentity);
+                $('#FaturaNo').val(numbers);
+                $('#FaturaTutar').val(tutar);
+          
+            
+            }
+        });
+    }
+
+    function odemeyapma() {
+      
+        $.ajax({
+            url: "../Fatura/odemeyapma",
+            type: "GET",
+            data: { id: id1},
+            dataType: "Json",
+            async: "false",
+
+            success: function (result) {
+                alert(result);
+            }
+        });
+    }
+
+
+
+</script>
+
+

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FaturaSistemi</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+            crossorigin="anonymous">
+
+    </script>
+
+    <script src="jquery.selectr.js"></script>
+
+    <script src="~/lib/popper/umd/popper.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+
+    <script src="~/lib/bootstrap-table/bootstrap-table.js"></script>
+
+    <script src="~/lib/bootstrap-select/js/bootstrap-select.js"></script>
+
+
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse" style="background-color: #ff3333; ">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+
+                <div style="font-size:20px;color:white">
+                    <img src="~/resimler/e-fatura.png" class="img-fluid float-left" style="width:13%; margin-top:-8px">
+                    <h4>&nbsp;<em>E-Fatura</em></h4>
+                </div>
+
+
+            </div>
+
+
+            <div class="row" style="width:25%">
+                <div class="float-left mr-3" id="ustMenu">
+                    @Html.ActionLink("Admin Giriş", "Privacy", "Home")
+                </div>
+                <div class="float-left mr-3" id="ustMenu">
+                    @Html.ActionLink("Uye Giriş", "Index", "Home")
+                </div>
+            </div>
+            @*<ul class="nav navbar-nav navbar-right" id="ustMenu">
+                <li class="active"><a href="adminanasayfa.jsp">Anasayfa</a></li>
+                <li>
+                   
+                </li>
+
+
+
+            </ul>*@
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - FaturaSistemi - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
